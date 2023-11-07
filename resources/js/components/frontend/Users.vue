@@ -24,7 +24,7 @@
                                     :to="{ path: '/frontend/'+users.id+'/edit' }">
                             Edit
                         </RouterLink>
-                        <button type="button" class="btn btn-danger">
+                        <button type="button" @click="deleteUser(users.id)" class="btn btn-danger">
                             delete
                         </button>
                     </td>
@@ -42,7 +42,7 @@
 <script>
     import axios from 'axios'
     import moment from 'moment';
-import { RouterLink } from 'vue-router';
+    import { RouterLink } from 'vue-router';
 
     export default {
     name: 'users',
@@ -66,6 +66,20 @@ import { RouterLink } from 'vue-router';
                 this.users = res.data;
                 console.log(this.users);
             });
+        },
+
+        deleteUser(userId){
+            if(confirm('Are you sure?')){
+                //console.log(userId);
+                axios.delete(`http://127.0.0.1:8000/api/users/${userId}/delete`).then(res => {
+                    console.log(res.data);
+                    this.getUsers();
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+            }
         }
     },
     components: { RouterLink }
