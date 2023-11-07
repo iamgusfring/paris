@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from "@/components/frontend/Home.vue";
 import AboutUs from "@/components/frontend/AboutUs.vue";
+import Create from "@/components/frontend/Create.vue";
 
 const routes = [
     { 
@@ -14,6 +15,11 @@ const routes = [
         path: '/frontend/aboutus', 
         name: 'frontend.aboutus',
         component: AboutUs 
+    },
+    { 
+        path: '/frontend/create', 
+        name: 'frontend.create',
+        component: Create 
     },
 ]
 

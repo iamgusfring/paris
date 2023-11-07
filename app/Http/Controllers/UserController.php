@@ -30,7 +30,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->profession = $request->input('profession');
+        $user->password = $request->input('password');
+
+        $user->save();
     }
 
     /**
