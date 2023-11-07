@@ -20,9 +20,10 @@
                     <td>{{ users.email }}</td>
                     <td>{{ format_date(users.created_at) }}</td>
                     <td>
-                        <router-link class="btn btn-success" to="/">
+                        <RouterLink class="btn btn-success" 
+                                    :to="{ path: '/frontend/'+users.id+'/edit' }">
                             Edit
-                        </router-link>
+                        </RouterLink>
                         <button type="button" class="btn btn-danger">
                             delete
                         </button>
@@ -41,32 +42,32 @@
 <script>
     import axios from 'axios'
     import moment from 'moment';
+import { RouterLink } from 'vue-router';
 
     export default {
-        name: 'users',
-        //url = 'http://127.0.0.1:8000/api/users'
-        data(){
-            return {
-                users: []
+    name: 'users',
+    //url = 'http://127.0.0.1:8000/api/users'
+    data() {
+        return {
+            users: []
+        };
+    },
+    mounted() {
+        this.getUsers();
+    },
+    methods: {
+        format_date(value) {
+            if (value) {
+                return moment(String(value)).format('DDMMYYYY');
             }
         },
-        mounted() {
-            this.getUsers();
-        },
-        methods: {
-
-            format_date(value){
-                if (value) {
-                return moment(String(value)).format('DDMMYYYY')
-                }
-            },
-            
-            getUsers(){
-                axios.get('http://127.0.0.1:8000/api/users').then(res => {
-                    this.users = res.data
-                    console.log(this.users);
-                })
-            }
+        getUsers() {
+            axios.get('http://127.0.0.1:8000/api/users').then(res => {
+                this.users = res.data;
+                console.log(this.users);
+            });
         }
-    }
+    },
+    components: { RouterLink }
+}
 </script>

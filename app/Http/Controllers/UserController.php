@@ -52,7 +52,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::where('id', $id)->first();
+        return response()->json($user);
     }
 
     /**
@@ -60,7 +61,13 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->profession = $request->input('profession');
+        $user->password = $request->input('password');
+
+        $user->save();
     }
 
     /**
